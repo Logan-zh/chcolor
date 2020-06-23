@@ -32,11 +32,11 @@
     <div id="demo">
     </div>
     <div style='display:flex;flex-wrap:wrap;'>
-    <div style='flex:0 0 100%;'><input type="button" value="R" onclick='change("r")'>
+    <div style='flex:0 0 100%;'><input type="button" value="R" onclick='promColor("r")'>
     <input type="range" name='r' onchange="changeByRange(this)" value='0' max="255" min="0"></div>
-    <div style='flex:0 0 100%;'><input type="button" value="G" onclick='change("g")'>
+    <div style='flex:0 0 100%;'><input type="button" value="G" onclick='promColor("g")'>
     <input type="range" name='g' onchange="changeByRange(this)" value='0' max="255" min="0"></div>
-    <div style='flex:0 0 100%;'><input type="button" value="B" onclick='change("b")'>
+    <div style='flex:0 0 100%;'><input type="button" value="B" onclick='promColor("b")'>
     <input type="range" name='b' onchange="changeByRange(this)" value='0' max="255" min="0"></div>
     </div>
     <input type="button" value="←" onclick="CK('minus')" onmousedown="run('minus')" onmouseup="stop()">
@@ -49,7 +49,7 @@
         let g=0;
         let b=0;
         let range = document.querySelectorAll("input[type='range']");
-        function change(color){
+        function promColor(color){
             let tmp = prompt('輸入0~255');
             switch(color){
                 case 'r':
@@ -62,11 +62,7 @@
                     b = tmp;
                 break;
             }
-            demo.style.backgroundColor=`RGB(${r},${g},${b})`;
-            range[0].value=r;
-            range[1].value=g;
-            range[2].value=b;
-            showNumber();
+            changeColor();
         }
         function changeByRange($this){
             switch($this.name){
@@ -96,11 +92,7 @@
                     b-=1;
                 break;
             }
-            demo.style.backgroundColor=`RGB(${r},${g},${b})`;
-            range[0].value=r;
-            range[1].value=g;
-            range[2].value=b;
-            showNumber();
+            changeColor();
         }
         function showNumber(){
             let num = `#${Math.abs(r).toString(16)}${Math.abs(g).toString(16)}${Math.abs(b).toString(16)}`;
@@ -117,7 +109,17 @@
             r=Math.round(Math.random()*255);
             g=Math.round(Math.random()*255);
             b=Math.round(Math.random()*255);
+            changeColor();
+        }
+        function changeColor(){
+            if(r<=0)r=0;
+            if(g<=0)g=0;
+            if(b<=0)b=0;
+            if(r>=255)r=255;
+            if(g>=255)g=255;
+            if(b>=255)b=255;
             demo.style.backgroundColor=`RGB(${r},${g},${b})`;
+            demo.style.color=`RGB(${r/2},${g/2},${b/2})`;
             range[0].value=r;
             range[1].value=g;
             range[2].value=b;
