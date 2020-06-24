@@ -50,15 +50,17 @@
         let b=0;
         let range = document.querySelectorAll("input[type='range']");
         function promColor(color){
-            let tmp = prompt('輸入0~255');
             switch(color){
                 case 'r':
+                tmp = prompt('輸入0~255',r);
                     r = tmp;
                 break;
                 case 'g':
+                tmp = prompt('輸入0~255',g);
                     g = tmp;
                 break;
                 case 'b':
+                tmp = prompt('輸入0~255',b);
                     b = tmp;
                 break;
             }
